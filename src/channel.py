@@ -27,12 +27,44 @@ class Channel:
         self.video_count = channel['items'][0]['statistics']['videoCount']
         self.view_count = channel['items'][0]['statistics']['viewCount']
 
-    # def print_info(self) -> None:
-    #   """Выводит в консоль информацию о канале."""
-    #   channel = self.youtube.channels().list(
-    #       id=self.channel_id,
-    #       part='snippet,statistics').execute()
-    #   print(json.dumps(channel, indent=2, ensure_ascii=False))
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return f'{int(self.subs_count) + int(other.subs_count)}'
+
+    def __sub__(self, other):
+        return f'{int(self.subs_count) - int(other.subs_count)}'
+
+    def __gt__(self, other):
+        if int(self.subs_count) > int(other.subs_count):
+            return True
+        else:
+            return False
+
+    def __ge__(self, other):
+        if int(self.subs_count) >= int(other.subs_count):
+            return True
+        else:
+            return False
+
+    def __lt__(self, other):
+        if int(self.subs_count) < int(other.subs_count):
+            return True
+        else:
+            return False
+
+    def __le__(self, other):
+        if int(self.subs_count) <= int(other.subs_count):
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):
+        if int(self.subs_count) == int(other.subs_count):
+            return True
+        else:
+            return False
 
     @classmethod
     def get_service(cls):
